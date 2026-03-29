@@ -184,7 +184,14 @@ h2.section-title{
   padding:28px 24px;border-radius:var(--radius);
   border:1px solid var(--border);background:var(--surface);
 }
-.gov-icon{font-size:28px;margin-bottom:14px}
+.gov-icon{
+  width:48px;height:48px;border-radius:14px;margin-bottom:16px;
+  background:linear-gradient(135deg,rgba(99,102,241,0.15),rgba(139,92,246,0.15));
+  border:1px solid rgba(99,102,241,0.2);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 24px rgba(99,102,241,0.08);
+}
+.gov-icon svg{width:24px;height:24px;stroke:var(--brand);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .gov-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
 .gov-card p{font-size:13px;color:var(--text2);line-height:1.6}
 
@@ -482,32 +489,32 @@ h2.section-title{
 
     <div class="gov-grid">
       <div class="gov-card">
-        <div class="gov-icon">&#128274;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <h3><span class="t-en">Data Sovereignty</span><span class="t-de">Datensouveränität</span></h3>
         <p><span class="t-en">On-premise deployment or sovereign cloud hosting. Your data never leaves your infrastructure. Full air-gap capability available.</span><span class="t-de">On-Premise-Deployment oder Sovereign-Cloud-Hosting. Ihre Daten verlassen nie Ihre Infrastruktur. Vollständige Air-Gap-Fähigkeit verfügbar.</span></p>
       </div>
       <div class="gov-card">
-        <div class="gov-icon">&#128196;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div>
         <h3><span class="t-en">Compliance Ready</span><span class="t-de">Compliance-bereit</span></h3>
         <p><span class="t-en">ISO 27001, SOC 2 Type II certification roadmap. Full audit trail for every data transformation. GDPR-compliant by design.</span><span class="t-de">ISO 27001, SOC 2 Type II Zertifizierungs-Roadmap. Vollständiger Audit-Trail für jede Datentransformation. DSGVO-konform by Design.</span></p>
       </div>
       <div class="gov-card">
-        <div class="gov-icon">&#128101;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
         <h3><span class="t-en">Flexible Procurement</span><span class="t-de">Flexible Beschaffung</span></h3>
         <p><span class="t-en">Framework agreements, multi-year contracts with up to 30% discount, and a free 3-month pilot program to prove value before commitment.</span><span class="t-de">Rahmenverträge, Mehrjahresverträge mit bis zu 30% Rabatt und ein kostenloses 3-Monats-Pilotprogramm zum Nachweis des Mehrwerts vor Vertragsabschluss.</span></p>
       </div>
       <div class="gov-card">
-        <div class="gov-icon">&#127891;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></div>
         <h3><span class="t-en">Education & NGO</span><span class="t-de">Bildung & NGOs</span></h3>
         <p><span class="t-en">50% discount on all tiers for educational institutions, research organizations, and non-profits. Building the next generation of data literacy.</span><span class="t-de">50% Rabatt auf alle Tiers für Bildungseinrichtungen, Forschungsorganisationen und gemeinnützige Organisationen.</span></p>
       </div>
       <div class="gov-card">
-        <div class="gov-icon">&#128337;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="10"/><path d="M16.24 7.76a6 6 0 010 8.49"/></svg></div>
         <h3><span class="t-en">3-Month Free Pilot</span><span class="t-de">3 Monate kostenloser Pilot</span></h3>
         <p><span class="t-en">Start with a no-obligation pilot. Full Professional tier access for 3 months. We help you onboard your data and prove ROI before any purchase decision.</span><span class="t-de">Starten Sie mit einem unverbindlichen Pilot. Voller Professional-Tier-Zugang für 3 Monate. Wir helfen Ihnen beim Onboarding und ROI-Nachweis vor jeder Kaufentscheidung.</span></p>
       </div>
       <div class="gov-card">
-        <div class="gov-icon">&#127760;</div>
+        <div class="gov-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
         <h3><span class="t-en">Multilingual & RTL</span><span class="t-de">Mehrsprachig & RTL</span></h3>
         <p><span class="t-en">Full Arabic (RTL), German, and English support. AI understands and processes data in any language, including mixed-script datasets.</span><span class="t-de">Vollständige Arabisch- (RTL), Deutsch- und Englisch-Unterstützung. KI versteht und verarbeitet Daten in jeder Sprache, einschließlich gemischter Skripte.</span></p>
       </div>

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIOM Pricing — NIOUS GmbH</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090f;--surface:#111118;--surface2:#18181f;--surface3:#1e1e28;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --brand:#6366f1;--brand2:#8b5cf6;--brand-glow:rgba(99,102,241,0.18);
+  --emerald:#10b981;--amber:#f59e0b;--red:#ef4444;--sky:#38bdf8;
+  --text:#f1f1f3;--text2:#a1a1aa;--text3:#52525b;
+  --radius:14px;--radius-sm:8px;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',system-ui,sans-serif;
+  line-height:1.65;font-size:16px;overflow-x:hidden;
+}
+
+/* ── Language utils ── */
+.t-en,.t-de{display:none}
+.lang-en .t-en,.lang-de .t-de{display:inline}
+.b-en,.b-de{display:none}
+.lang-en .b-en,.lang-de .b-de{display:block}
+.f-en,.f-de{display:none}
+.lang-en .f-en,.lang-de .f-de{display:flex}
+
+/* ── Top bar ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 36px;
+  background:rgba(9,9,15,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:34px;height:34px;border-radius:9px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#fff;letter-spacing:-0.5px;
+}
+.logo-name{font-size:18px;font-weight:800;letter-spacing:-0.5px;color:#fff}
+.logo-name span{color:var(--brand)}
+.logo-by{font-size:11px;color:var(--text3);margin-left:2px;margin-top:1px}
+.lang-btns{display:flex;gap:6px}
+.lang-btn{
+  padding:5px 13px;border-radius:6px;font-size:12px;font-weight:600;
+  border:1px solid var(--border2);background:transparent;color:var(--text2);
+  cursor:pointer;transition:all .2s;
+}
+.lang-btn:hover{background:var(--surface2);color:var(--text)}
+.lang-btn.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* ── Sections ── */
+section{padding:80px 40px}
+.container{max-width:1160px;margin:0 auto}
+
+/* ── Hero ── */
+.hero{
+  min-height:60vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding-top:120px;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,rgba(99,102,241,0.22) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 80%,rgba(139,92,246,0.08) 0%,transparent 60%),
+    var(--bg);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border-radius:99px;
+  border:1px solid rgba(99,102,241,0.3);
+  background:rgba(99,102,241,0.08);
+  font-size:12px;font-weight:600;color:var(--brand);
+  margin-bottom:28px;letter-spacing:0.3px;
+}
+.hero-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{
+  font-size:clamp(36px,5vw,64px);font-weight:900;
+  letter-spacing:-2px;line-height:1.05;margin-bottom:24px;
+}
+.hero h1 .accent{
+  background:linear-gradient(135deg,#6366f1,#a78bfa,#ec4899);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(16px,2vw,20px);color:var(--text2);
+  max-width:680px;margin:0 auto 44px;line-height:1.55;
+}
+
+/* ── Section label ── */
+.section-label{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--brand);margin-bottom:16px;
+}
+.section-label::before{content:'';display:block;width:16px;height:2px;background:var(--brand);border-radius:1px}
+h2.section-title{
+  font-size:clamp(28px,4vw,42px);font-weight:900;
+  letter-spacing:-1.5px;line-height:1.1;margin-bottom:16px;
+}
+.section-desc{font-size:17px;color:var(--text2);max-width:600px;line-height:1.6}
+
+/* ── Value Props ── */
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:48px}
+@media(max-width:900px){.value-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:500px){.value-grid{grid-template-columns:1fr}}
+.value-card{
+  padding:28px 24px;border-radius:var(--radius);
+  border:1px solid var(--border);background:var(--surface);text-align:center;
+}
+.value-num{font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:6px}
+.value-label{font-size:13px;color:var(--text2);line-height:1.4}
+
+/* ── Pricing cards ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}
+.pricing-card{
+  border-radius:var(--radius);border:1px solid var(--border);
+  background:var(--surface);padding:36px 28px;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.pricing-card.featured{
+  border-color:rgba(99,102,241,0.4);
+  box-shadow:0 0 60px rgba(99,102,241,0.12);
+}
+.pricing-card.featured::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#6366f1,#8b5cf6,#ec4899);
+}
+.pricing-tier{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--brand);margin-bottom:8px}
+.pricing-name{font-size:22px;font-weight:800;margin-bottom:4px}
+.pricing-desc{font-size:13px;color:var(--text3);margin-bottom:20px;line-height:1.5}
+.pricing-price{font-size:36px;font-weight:900;letter-spacing:-1px;margin-bottom:4px}
+.pricing-price span{font-size:14px;font-weight:500;color:var(--text3);letter-spacing:0}
+.pricing-note{font-size:11px;color:var(--text3);margin-bottom:24px}
+.pricing-features{list-style:none;flex:1;margin-bottom:28px}
+.pricing-features li{
+  font-size:13px;color:var(--text2);padding:7px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+  display:flex;align-items:center;gap:8px;
+}
+.pricing-features li::before{content:'';width:16px;height:16px;flex-shrink:0;border-radius:50%;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+.pricing-cta{
+  display:block;text-align:center;padding:12px;border-radius:10px;
+  font-size:14px;font-weight:700;text-decoration:none;
+  transition:all .2s;cursor:pointer;border:none;width:100%;
+}
+.pricing-cta-outline{
+  background:transparent;border:1px solid var(--border2);color:var(--text);
+}
+.pricing-cta-outline:hover{background:var(--surface2);border-color:var(--brand)}
+.pricing-cta-primary{
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;
+  box-shadow:0 0 30px rgba(99,102,241,0.3);
+}
+.pricing-cta-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(99,102,241,0.45)}
+.pricing-cta-dark{
+  background:var(--surface3);border:1px solid var(--border2);color:var(--text);
+}
+.pricing-cta-dark:hover{background:var(--surface2);border-color:var(--brand)}
+
+/* ── Comparison table ── */
+.compare-table{width:100%;border-collapse:collapse;margin-top:48px}
+.compare-table th,.compare-table td{padding:12px 16px;font-size:13px;text-align:left;border-bottom:1px solid var(--border)}
+.compare-table thead th{font-weight:700;color:var(--text);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;background:var(--surface2)}
+.compare-table thead th:first-child{border-radius:var(--radius-sm) 0 0 0}
+.compare-table thead th:last-child{border-radius:0 var(--radius-sm) 0 0}
+.compare-table tbody td{color:var(--text2)}
+.compare-table tbody td:first-child{color:var(--text);font-weight:600}
+.compare-table tbody tr:hover{background:var(--surface)}
+.check{color:var(--emerald);font-weight:700}
+.dash{color:var(--text3)}
+
+/* ── Government ── */
+.gov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+@media(max-width:800px){.gov-grid{grid-template-columns:1fr}}
+.gov-card{
+  padding:28px 24px;border-radius:var(--radius);
+  border:1px solid var(--border);background:var(--surface);
+}
+.gov-icon{font-size:28px;margin-bottom:14px}
+.gov-card h3{font-size:16px;font-weight:700;margin-bottom:8px}
+.gov-card p{font-size:13px;color:var(--text2);line-height:1.6}
+
+/* ── ROI Calculator ── */
+.roi-calc{
+  margin-top:48px;padding:36px;border-radius:var(--radius);
+  border:1px solid var(--border);background:var(--surface);
+  display:grid;grid-template-columns:1fr 1fr;gap:36px;
+}
+@media(max-width:700px){.roi-calc{grid-template-columns:1fr}}
+.roi-input label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px}
+.roi-input input,.roi-input select{
+  width:100%;padding:10px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--text);font-size:14px;margin-bottom:16px;
+}
+.roi-input input:focus,.roi-input select:focus{outline:none;border-color:var(--brand)}
+.roi-result{display:flex;flex-direction:column;justify-content:center;gap:20px}
+.roi-metric{text-align:center}
+.roi-metric-num{font-size:42px;font-weight:900;letter-spacing:-1px}
+.roi-metric-label{font-size:12px;color:var(--text2);margin-top:2px}
+
+/* ── FAQ ── */
+.faq-list{margin-top:48px;max-width:800px}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0}
+.faq-q{font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.faq-q::after{content:'+';font-size:20px;color:var(--brand);font-weight:400;flex-shrink:0;transition:transform .2s}
+.faq-item.open .faq-q::after{content:'-'}
+.faq-a{font-size:14px;color:var(--text2);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s}
+.faq-item.open .faq-a{max-height:300px;padding-top:12px}
+
+/* ── CTA ── */
+.cta-section{text-align:center;background:linear-gradient(180deg,var(--bg),var(--surface))}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;border-radius:10px;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:#fff;font-size:16px;font-weight:700;text-decoration:none;
+  box-shadow:0 0 40px rgba(99,102,241,0.35);
+  transition:all .2s;cursor:pointer;border:none;
+  margin-top:32px;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(99,102,241,0.5)}
+
+/* ── Print ── */
+@media print{
+  .topbar,.lang-btns{display:none!important}
+  body{background:#fff;color:#111}
+  section{padding:40px 20px}
+  .pricing-card,.gov-card,.value-card{border:1px solid #ddd;background:#f9f9f9}
+  .pricing-card.featured{box-shadow:none}
+  h1,h2,.pricing-name,.pricing-price,.value-num,.roi-metric-num{color:#111!important;-webkit-text-fill-color:#111!important;background:none!important}
+  .section-label,.pricing-tier{color:#6366f1!important}
+  .compare-table thead th{background:#eee}
+}
+</style>
+</head>
+<body class="lang-en">
+
+<!-- ── Top bar ── -->
+<header class="topbar">
+  <div class="logo">
+    <img src="nious_logo.png" alt="NIOUS" style="height:34px;border-radius:6px">
+    <div>
+      <div class="logo-name">AXI<span>O</span>M</div>
+      <div class="logo-by">by NIOUS GmbH</div>
+    </div>
+  </div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('de')">DE</button>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- HERO                                                                 -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container" style="max-width:800px">
+    <div class="hero-badge"><span class="dot"></span> <span class="t-en">Enterprise & Government</span><span class="t-de">Enterprise & Government</span></div>
+    <h1>
+      <span class="t-en">Transparent <span class="accent">Pricing</span> that Scales with You</span>
+      <span class="t-de">Transparente <span class="accent">Preise</span>, die mit Ihnen wachsen</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="t-en">Start small, prove value, then expand. No hidden fees, no vendor lock-in. One platform for data quality, knowledge graphs, and AI-powered analytics.</span>
+      <span class="t-de">Klein starten, Mehrwert beweisen, dann skalieren. Keine versteckten Kosten, kein Vendor Lock-in. Eine Plattform für Datenqualität, Knowledge Graphs und KI-gestützte Analytik.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- VALUE PROPOSITION                                                    -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label"><span class="t-en">Why AXIOM</span><span class="t-de">Warum AXIOM</span></div>
+    <h2 class="section-title">
+      <span class="t-en">Replace months of engineering with minutes of AI</span>
+      <span class="t-de">Ersetzen Sie Monate Engineering durch Minuten KI</span>
+    </h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-num" style="color:var(--brand)">30<span style="font-size:20px">min</span></div>
+        <div class="value-label"><span class="t-en">From raw data to clean knowledge graph</span><span class="t-de">Von Rohdaten zum sauberen Knowledge Graph</span></div>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:var(--emerald)">90%</div>
+        <div class="value-label"><span class="t-en">Reduction in manual data cleaning effort</span><span class="t-de">Weniger manueller Aufwand bei der Datenbereinigung</span></div>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:var(--amber)">10x</div>
+        <div class="value-label"><span class="t-en">Faster time-to-insight vs. traditional ETL</span><span class="t-de">Schnellere Time-to-Insight vs. traditionelles ETL</span></div>
+      </div>
+      <div class="value-card">
+        <div class="value-num" style="color:var(--sky)">0</div>
+        <div class="value-label"><span class="t-en">Lines of code required</span><span class="t-de">Zeilen Code erforderlich</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- PRICING TIERS                                                        -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="t-en">Pricing</span><span class="t-de">Preise</span></div>
+    <h2 class="section-title">
+      <span class="t-en">Choose the plan that fits your organization</span>
+      <span class="t-de">Wählen Sie den Plan, der zu Ihrer Organisation passt</span>
+    </h2>
+    <p class="section-desc">
+      <span class="t-en">All plans include the full AXIOM pipeline. Scale with data volume, users, and AI usage.</span>
+      <span class="t-de">Alle Pläne beinhalten die vollständige AXIOM-Pipeline. Skalierung nach Datenvolumen, Nutzern und KI-Nutzung.</span>
+    </p>
+
+    <div class="pricing-grid">
+      <!-- Starter -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-name"><span class="t-en">Department</span><span class="t-de">Abteilung</span></div>
+        <div class="pricing-desc"><span class="t-en">For individual teams proving ROI with AXIOM</span><span class="t-de">Für einzelne Teams, die den ROI mit AXIOM nachweisen</span></div>
+        <div class="pricing-price">&euro;2,000 <span>/ <span class="t-en">month</span><span class="t-de">Monat</span></span></div>
+        <div class="pricing-note"><span class="t-en">Billed annually (&euro;24,000/year)</span><span class="t-de">Jährliche Abrechnung (&euro;24.000/Jahr)</span></div>
+        <ul class="pricing-features">
+          <li><span class="t-en">5 users included</span><span class="t-de">5 Benutzer inklusive</span></li>
+          <li><span class="t-en">10 pipelines / knowledge graphs</span><span class="t-de">10 Pipelines / Knowledge Graphs</span></li>
+          <li><span class="t-en">5 million rows / month</span><span class="t-de">5 Millionen Zeilen / Monat</span></li>
+          <li><span class="t-en">500 AI transformations / month</span><span class="t-de">500 KI-Transformationen / Monat</span></li>
+          <li><span class="t-en">Cloud hosted (EU)</span><span class="t-de">Cloud-gehostet (EU)</span></li>
+          <li><span class="t-en">Email support (48h response)</span><span class="t-de">E-Mail-Support (48h Antwortzeit)</span></li>
+        </ul>
+        <button class="pricing-cta pricing-cta-outline"><span class="t-en">Start Free Pilot</span><span class="t-de">Kostenlosen Pilot starten</span></button>
+      </div>
+
+      <!-- Professional (featured) -->
+      <div class="pricing-card featured">
+        <div class="pricing-tier"><span class="t-en">Most Popular</span><span class="t-de">Beliebteste Wahl</span></div>
+        <div class="pricing-name">Professional</div>
+        <div class="pricing-desc"><span class="t-en">For organizations scaling across departments</span><span class="t-de">Für Organisationen, die abteilungsübergreifend skalieren</span></div>
+        <div class="pricing-price">&euro;8,000 <span>/ <span class="t-en">month</span><span class="t-de">Monat</span></span></div>
+        <div class="pricing-note"><span class="t-en">Billed annually (&euro;96,000/year)</span><span class="t-de">Jährliche Abrechnung (&euro;96.000/Jahr)</span></div>
+        <ul class="pricing-features">
+          <li><span class="t-en">25 users included</span><span class="t-de">25 Benutzer inklusive</span></li>
+          <li><span class="t-en">Unlimited pipelines & graphs</span><span class="t-de">Unbegrenzte Pipelines & Graphs</span></li>
+          <li><span class="t-en">50 million rows / month</span><span class="t-de">50 Millionen Zeilen / Monat</span></li>
+          <li><span class="t-en">2,000 AI transformations / month</span><span class="t-de">2.000 KI-Transformationen / Monat</span></li>
+          <li><span class="t-en">SSO / SAML integration</span><span class="t-de">SSO / SAML-Integration</span></li>
+          <li><span class="t-en">Audit log & data lineage</span><span class="t-de">Audit-Log & Datenherkunft</span></li>
+          <li><span class="t-en">REST API access</span><span class="t-de">REST-API-Zugang</span></li>
+          <li><span class="t-en">Priority support (4h response)</span><span class="t-de">Priority-Support (4h Antwortzeit)</span></li>
+        </ul>
+        <button class="pricing-cta pricing-cta-primary"><span class="t-en">Contact Sales</span><span class="t-de">Vertrieb kontaktieren</span></button>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-name"><span class="t-en">Organization-wide</span><span class="t-de">Organisationsweit</span></div>
+        <div class="pricing-desc"><span class="t-en">For enterprise & government with compliance needs</span><span class="t-de">Für Unternehmen & Behörden mit Compliance-Anforderungen</span></div>
+        <div class="pricing-price"><span class="t-en">Custom</span><span class="t-de">Individuell</span></div>
+        <div class="pricing-note"><span class="t-en">Starting at &euro;25,000/month</span><span class="t-de">Ab &euro;25.000/Monat</span></div>
+        <ul class="pricing-features">
+          <li><span class="t-en">Unlimited users</span><span class="t-de">Unbegrenzte Benutzer</span></li>
+          <li><span class="t-en">Unlimited data volume</span><span class="t-de">Unbegrenztes Datenvolumen</span></li>
+          <li><span class="t-en">Unlimited AI (fair use)</span><span class="t-de">Unbegrenzte KI (Fair Use)</span></li>
+          <li><span class="t-en">On-premise / sovereign cloud</span><span class="t-de">On-Premise / Sovereign Cloud</span></li>
+          <li><span class="t-en">Custom SLA (99.9% uptime)</span><span class="t-de">Individuelles SLA (99,9% Uptime)</span></li>
+          <li><span class="t-en">Dedicated Customer Success Manager</span><span class="t-de">Dedizierter Customer Success Manager</span></li>
+          <li><span class="t-en">Custom integrations & training</span><span class="t-de">Individuelle Integrationen & Schulung</span></li>
+          <li><span class="t-en">Multi-year contract discounts</span><span class="t-de">Mehrjahresvertrag-Rabatte</span></li>
+        </ul>
+        <button class="pricing-cta pricing-cta-dark"><span class="t-en">Book a Call</span><span class="t-de">Termin vereinbaren</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- FEATURE COMPARISON TABLE                                             -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label"><span class="t-en">Compare Plans</span><span class="t-de">Pläne vergleichen</span></div>
+    <h2 class="section-title">
+      <span class="t-en">Feature comparison</span>
+      <span class="t-de">Funktionsvergleich</span>
+    </h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th><span class="t-en">Feature</span><span class="t-de">Funktion</span></th>
+          <th>Starter</th>
+          <th>Professional</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="t-en">Users</span><span class="t-de">Benutzer</span></td>
+          <td>5</td><td>25</td><td class="check"><span class="t-en">Unlimited</span><span class="t-de">Unbegrenzt</span></td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Data volume</span><span class="t-de">Datenvolumen</span></td>
+          <td>5M <span class="t-en">rows/mo</span><span class="t-de">Zeilen/Mo</span></td>
+          <td>50M <span class="t-en">rows/mo</span><span class="t-de">Zeilen/Mo</span></td>
+          <td class="check"><span class="t-en">Unlimited</span><span class="t-de">Unbegrenzt</span></td>
+        </tr>
+        <tr>
+          <td><span class="t-en">AI transformations</span><span class="t-de">KI-Transformationen</span></td>
+          <td>500/<span class="t-en">mo</span><span class="t-de">Mo</span></td>
+          <td>2,000/<span class="t-en">mo</span><span class="t-de">Mo</span></td>
+          <td class="check">Fair Use</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Knowledge graphs</span><span class="t-de">Knowledge Graphs</span></td>
+          <td>10</td><td class="check"><span class="t-en">Unlimited</span><span class="t-de">Unbegrenzt</span></td><td class="check"><span class="t-en">Unlimited</span><span class="t-de">Unbegrenzt</span></td>
+        </tr>
+        <tr>
+          <td><span class="t-en">KPI scenarios & analytics</span><span class="t-de">KPI-Szenarien & Analytik</span></td>
+          <td class="check">&checkmark;</td><td class="check">&checkmark;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Data lineage & audit log</span><span class="t-de">Datenherkunft & Audit-Log</span></td>
+          <td class="dash">&mdash;</td><td class="check">&checkmark;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td>SSO / SAML</td>
+          <td class="dash">&mdash;</td><td class="check">&checkmark;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td>REST API</td>
+          <td class="dash">&mdash;</td><td class="check">&checkmark;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">On-premise / sovereign cloud</span><span class="t-de">On-Premise / Sovereign Cloud</span></td>
+          <td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Custom SLA</span><span class="t-de">Individuelles SLA</span></td>
+          <td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="check">99.9%</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Dedicated CSM</span><span class="t-de">Dedizierter CSM</span></td>
+          <td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td><span class="t-en">Custom integrations</span><span class="t-de">Individuelle Integrationen</span></td>
+          <td class="dash">&mdash;</td><td class="dash">&mdash;</td><td class="check">&checkmark;</td>
+        </tr>
+        <tr>
+          <td>Support</td>
+          <td>Email (48h)</td><td><span class="t-en">Priority</span><span class="t-de">Priorität</span> (4h)</td><td class="check"><span class="t-en">Dedicated</span><span class="t-de">Dediziert</span> (1h)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- GOVERNMENT & PUBLIC SECTOR                                           -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-label"><span class="t-en">Government & Public Sector</span><span class="t-de">Government & Öffentlicher Sektor</span></div>
+    <h2 class="section-title">
+      <span class="t-en">Built for public sector requirements</span>
+      <span class="t-de">Entwickelt für Anforderungen des öffentlichen Sektors</span>
+    </h2>
+    <p class="section-desc">
+      <span class="t-en">AXIOM meets the security, compliance, and procurement needs of government organizations worldwide.</span>
+      <span class="t-de">AXIOM erfüllt die Sicherheits-, Compliance- und Beschaffungsanforderungen von Behörden weltweit.</span>
+    </p>
+
+    <div class="gov-grid">
+      <div class="gov-card">
+        <div class="gov-icon">&#128274;</div>
+        <h3><span class="t-en">Data Sovereignty</span><span class="t-de">Datensouveränität</span></h3>
+        <p><span class="t-en">On-premise deployment or sovereign cloud hosting. Your data never leaves your infrastructure. Full air-gap capability available.</span><span class="t-de">On-Premise-Deployment oder Sovereign-Cloud-Hosting. Ihre Daten verlassen nie Ihre Infrastruktur. Vollständige Air-Gap-Fähigkeit verfügbar.</span></p>
+      </div>
+      <div class="gov-card">
+        <div class="gov-icon">&#128196;</div>
+        <h3><span class="t-en">Compliance Ready</span><span class="t-de">Compliance-bereit</span></h3>
+        <p><span class="t-en">ISO 27001, SOC 2 Type II certification roadmap. Full audit trail for every data transformation. GDPR-compliant by design.</span><span class="t-de">ISO 27001, SOC 2 Type II Zertifizierungs-Roadmap. Vollständiger Audit-Trail für jede Datentransformation. DSGVO-konform by Design.</span></p>
+      </div>
+      <div class="gov-card">
+        <div class="gov-icon">&#128101;</div>
+        <h3><span class="t-en">Flexible Procurement</span><span class="t-de">Flexible Beschaffung</span></h3>
+        <p><span class="t-en">Framework agreements, multi-year contracts with up to 30% discount, and a free 3-month pilot program to prove value before commitment.</span><span class="t-de">Rahmenverträge, Mehrjahresverträge mit bis zu 30% Rabatt und ein kostenloses 3-Monats-Pilotprogramm zum Nachweis des Mehrwerts vor Vertragsabschluss.</span></p>
+      </div>
+      <div class="gov-card">
+        <div class="gov-icon">&#127891;</div>
+        <h3><span class="t-en">Education & NGO</span><span class="t-de">Bildung & NGOs</span></h3>
+        <p><span class="t-en">50% discount on all tiers for educational institutions, research organizations, and non-profits. Building the next generation of data literacy.</span><span class="t-de">50% Rabatt auf alle Tiers für Bildungseinrichtungen, Forschungsorganisationen und gemeinnützige Organisationen.</span></p>
+      </div>
+      <div class="gov-card">
+        <div class="gov-icon">&#128337;</div>
+        <h3><span class="t-en">3-Month Free Pilot</span><span class="t-de">3 Monate kostenloser Pilot</span></h3>
+        <p><span class="t-en">Start with a no-obligation pilot. Full Professional tier access for 3 months. We help you onboard your data and prove ROI before any purchase decision.</span><span class="t-de">Starten Sie mit einem unverbindlichen Pilot. Voller Professional-Tier-Zugang für 3 Monate. Wir helfen Ihnen beim Onboarding und ROI-Nachweis vor jeder Kaufentscheidung.</span></p>
+      </div>
+      <div class="gov-card">
+        <div class="gov-icon">&#127760;</div>
+        <h3><span class="t-en">Multilingual & RTL</span><span class="t-de">Mehrsprachig & RTL</span></h3>
+        <p><span class="t-en">Full Arabic (RTL), German, and English support. AI understands and processes data in any language, including mixed-script datasets.</span><span class="t-de">Vollständige Arabisch- (RTL), Deutsch- und Englisch-Unterstützung. KI versteht und verarbeitet Daten in jeder Sprache, einschließlich gemischter Skripte.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- ROI CALCULATOR                                                       -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label"><span class="t-en">ROI Calculator</span><span class="t-de">ROI-Rechner</span></div>
+    <h2 class="section-title">
+      <span class="t-en">Estimate your savings</span>
+      <span class="t-de">Schätzen Sie Ihre Einsparungen</span>
+    </h2>
+    <p class="section-desc">
+      <span class="t-en">See how much time and money AXIOM saves compared to manual data engineering.</span>
+      <span class="t-de">Sehen Sie, wie viel Zeit und Geld AXIOM im Vergleich zu manueller Datenaufbereitung spart.</span>
+    </p>
+
+    <div class="roi-calc">
+      <div>
+        <div class="roi-input">
+          <label><span class="t-en">Data files processed per month</span><span class="t-de">Datendateien pro Monat</span></label>
+          <input type="number" id="roi-files" value="20" min="1" max="1000" oninput="calcROI()">
+        </div>
+        <div class="roi-input">
+          <label><span class="t-en">Average rows per file</span><span class="t-de">Durchschnittliche Zeilen pro Datei</span></label>
+          <select id="roi-rows" onchange="calcROI()">
+            <option value="10000">10,000</option>
+            <option value="50000">50,000</option>
+            <option value="100000" selected>100,000</option>
+            <option value="500000">500,000</option>
+            <option value="1000000">1,000,000+</option>
+          </select>
+        </div>
+        <div class="roi-input">
+          <label><span class="t-en">Data engineer hourly rate (&euro;)</span><span class="t-de">Stundensatz Data Engineer (&euro;)</span></label>
+          <input type="number" id="roi-rate" value="85" min="30" max="300" oninput="calcROI()">
+        </div>
+      </div>
+      <div class="roi-result">
+        <div class="roi-metric">
+          <div class="roi-metric-num" id="roi-hours" style="color:var(--amber)">160h</div>
+          <div class="roi-metric-label"><span class="t-en">Manual hours saved / month</span><span class="t-de">Gesparte manuelle Stunden / Monat</span></div>
+        </div>
+        <div class="roi-metric">
+          <div class="roi-metric-num" id="roi-savings" style="color:var(--emerald)">&euro;13,600</div>
+          <div class="roi-metric-label"><span class="t-en">Monthly cost savings</span><span class="t-de">Monatliche Kosteneinsparung</span></div>
+        </div>
+        <div class="roi-metric">
+          <div class="roi-metric-num" id="roi-multiple" style="color:var(--brand)">6.8x</div>
+          <div class="roi-metric-label"><span class="t-en">Return on AXIOM investment</span><span class="t-de">Return on AXIOM-Investment</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- FAQ                                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">
+      <span class="t-en">Frequently asked questions</span>
+      <span class="t-de">Häufig gestellte Fragen</span>
+    </h2>
+
+    <div class="faq-list">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">What happens if we exceed our plan limits?</span><span class="t-de">Was passiert, wenn wir unsere Plangrenzen überschreiten?</span></div>
+        <div class="faq-a"><span class="t-en">We never cut you off. If you consistently exceed limits, we'll reach out to discuss upgrading to the next tier. There are no overage fees or surprise charges.</span><span class="t-de">Wir sperren Sie niemals. Wenn Sie Limits regelmäßig überschreiten, kontaktieren wir Sie, um ein Upgrade auf den nächsten Tier zu besprechen. Es gibt keine Überschreitungsgebühren oder überraschende Kosten.</span></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">Can we run AXIOM on-premise?</span><span class="t-de">Können wir AXIOM On-Premise betreiben?</span></div>
+        <div class="faq-a"><span class="t-en">Yes. The Enterprise tier includes full on-premise deployment with Docker/Kubernetes. We also support air-gapped environments for classified data. Sovereign cloud options are available in EU, Middle East, and Asia-Pacific regions.</span><span class="t-de">Ja. Der Enterprise-Tier beinhaltet vollständiges On-Premise-Deployment mit Docker/Kubernetes. Wir unterstützen auch Air-Gap-Umgebungen für klassifizierte Daten. Sovereign-Cloud-Optionen sind in EU, Nahost und Asien-Pazifik verfügbar.</span></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">How does the 3-month pilot work?</span><span class="t-de">Wie funktioniert der 3-Monats-Pilot?</span></div>
+        <div class="faq-a"><span class="t-en">You get full Professional tier access for 3 months at no cost. Our team helps you onboard your real data, build your first knowledge graphs, and measure ROI. No credit card required. If you decide not to continue, your data is securely deleted.</span><span class="t-de">Sie erhalten 3 Monate kostenlosen Zugang zum Professional-Tier. Unser Team hilft Ihnen beim Onboarding Ihrer echten Daten, beim Aufbau Ihrer ersten Knowledge Graphs und bei der ROI-Messung. Keine Kreditkarte erforderlich. Bei Nicht-Fortsetzung werden Ihre Daten sicher gelöscht.</span></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">What discount do multi-year contracts receive?</span><span class="t-de">Welchen Rabatt erhalten Mehrjahresverträge?</span></div>
+        <div class="faq-a"><span class="t-en">Annual commitment: 20% discount. 3-year commitment: 30% discount. Government and education entities may qualify for additional discounts. Contact our sales team for a custom quote.</span><span class="t-de">Jahresvertrag: 20% Rabatt. 3-Jahres-Vertrag: 30% Rabatt. Behörden und Bildungseinrichtungen können für zusätzliche Rabatte qualifiziert sein. Kontaktieren Sie unser Vertriebsteam für ein individuelles Angebot.</span></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">Is our data used to train AI models?</span><span class="t-de">Werden unsere Daten zum Training von KI-Modellen verwendet?</span></div>
+        <div class="faq-a"><span class="t-en">Never. Your data is processed in ephemeral sessions and never stored by AI providers. With on-premise deployment, data never leaves your network. We are fully GDPR compliant and offer DPA agreements.</span><span class="t-de">Niemals. Ihre Daten werden in kurzlebigen Sitzungen verarbeitet und nie von KI-Anbietern gespeichert. Bei On-Premise-Deployment verlassen Daten nie Ihr Netzwerk. Wir sind vollständig DSGVO-konform und bieten AVV-Vereinbarungen.</span></div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q"><span class="t-en">What languages does AXIOM support?</span><span class="t-de">Welche Sprachen unterstützt AXIOM?</span></div>
+        <div class="faq-a"><span class="t-en">AXIOM's AI engine processes data in any language, including Arabic (with full RTL support), German, English, French, and more. The UI is available in English, German, and Arabic. Mixed-language datasets are handled natively.</span><span class="t-de">AXIOMs KI-Engine verarbeitet Daten in jeder Sprache, einschließlich Arabisch (mit vollständiger RTL-Unterstützung), Deutsch, Englisch, Französisch und mehr. Die Benutzeroberfläche ist auf Englisch, Deutsch und Arabisch verfügbar. Mehrsprachige Datensätze werden nativ verarbeitet.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- CTA                                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<section class="cta-section" style="padding:100px 40px">
+  <div class="container" style="text-align:center">
+    <h2 class="section-title" style="max-width:600px;margin:0 auto 16px">
+      <span class="t-en">Ready to transform your data pipeline?</span>
+      <span class="t-de">Bereit, Ihre Datenpipeline zu transformieren?</span>
+    </h2>
+    <p class="section-desc" style="max-width:500px;margin:0 auto">
+      <span class="t-en">Start with a free 3-month pilot. No commitment, no credit card, real results.</span>
+      <span class="t-de">Starten Sie mit einem kostenlosen 3-Monats-Pilot. Keine Verpflichtung, keine Kreditkarte, echte Ergebnisse.</span>
+    </p>
+    <button class="cta-btn">
+      <span class="t-en">Book a Demo &rarr;</span>
+      <span class="t-de">Demo buchen &rarr;</span>
+    </button>
+    <p style="margin-top:20px;font-size:13px;color:var(--text3)">
+      <span class="t-en">Or email us: sales@nious.de</span>
+      <span class="t-de">Oder per E-Mail: sales@nious.de</span>
+    </p>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer style="padding:24px 40px;border-top:1px solid var(--border);text-align:center">
+  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+    <img src="nious_logo.png" alt="NIOUS" style="height:24px;border-radius:4px;opacity:0.6">
+    <span style="font-size:13px;font-weight:600;color:var(--text3)">NIOUS GmbH</span>
+  </div>
+  <p style="font-size:12px;color:var(--text3)">&copy; 2026 NIOUS GmbH. All rights reserved. &nbsp;|&nbsp; <span class="t-en">Prices exclude VAT. Subject to change.</span><span class="t-de">Preise zzgl. MwSt. Änderungen vorbehalten.</span></p>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.getElementById('html-root').className = 'lang-' + lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.lang-btn[onclick*="'+lang+'"]').classList.add('active');
+}
+
+function calcROI() {
+  const files = parseInt(document.getElementById('roi-files').value) || 20;
+  const rows = parseInt(document.getElementById('roi-rows').value) || 100000;
+  const rate = parseInt(document.getElementById('roi-rate').value) || 85;
+
+  // Estimation: manual data cleaning takes ~2h per 10k rows for profiling,
+  // quality checks, transformation, and validation. AXIOM reduces this by 90%.
+  const manualHoursPerFile = Math.max(2, (rows / 10000) * 2);
+  const totalManualHours = Math.round(files * manualHoursPerFile);
+  const savedHours = Math.round(totalManualHours * 0.9);
+  const savings = savedHours * rate;
+
+  // Assume Professional tier cost
+  const axiomCost = 8000;
+  const multiple = (savings / axiomCost).toFixed(1);
+
+  document.getElementById('roi-hours').textContent = savedHours + 'h';
+  document.getElementById('roi-savings').textContent = '\u20AC' + savings.toLocaleString();
+  document.getElementById('roi-multiple').textContent = multiple + 'x';
+}
+
+// Init
+setLang('en');
+calcROI();
+</script>
+</body>
+</html>
